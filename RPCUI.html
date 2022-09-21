@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPC</title>
+</head>
+<body>
+<script>
+    //CPU choice
+    function getComputerChoice () {
+    let item = ["rock", "paper", "scissors"];
+    return item[Math.floor(Math.random() * item.length)];
+  }
+  
+  //Play one round
+  function playRound (playerSelection, computerSelection) {
+      if (playerSelection === "rock") { 
+          if (playerSelection === computerSelection) {
+          return "It's a Tie!";
+      } else if (playerSelection !== computerSelection && computerSelection === "paper") {
+          return "You lost, paper beats rock";
+      } else {return "You Win, rock beats scissors";}
+      }
+      if (playerSelection === "paper") {
+          if (playerSelection === computerSelection) {
+          return "It's a Tie!";
+      } else if (playerSelection !== computerSelection && computerSelection === "scissors") {
+          return "You lost, scissors beats paper";
+      } else {return "You Win, paper beats rock";}
+      }
+      if (playerSelection === "scissors") {
+          if (playerSelection === computerSelection) {
+          return "It's a Tie!";
+      } else if (playerSelection !== computerSelection && computerSelection === "rock") {
+          return "You lost, rock beats scissors";
+      } else {return "You Win, scissors beats paper";}
+  
+  } 
+  }
+
+
+ //div for displaying round result
+ const newDiv = document.createElement("div")
+ newDiv.setAttribute('id', 'displayResult') 
+ document.body.appendChild(newDiv)
+
+ //para for displaying round count
+ const para = document.createElement('p')
+ document.body.appendChild(para)
+
+ //para for displaying tournament results
+ const para2 = document.createElement('p')
+ document.body.appendChild(para2)
+ 
+let win = 0;
+let lose = 0;
+let games = 0;
+function game(playerSelection) {
+         let result = playRound(playerSelection, getComputerChoice())
+            if (playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissors") { 
+             if (result === "It's a Tie!") {
+                        games++;  win + lose;  newDiv.textContent = result; para.textContent = (`Wins: ${win} Losses: ${lose}`); 
+
+                } else if (result === "You Win, paper beats rock" || result === "You Win, rock beats scissors" || result === "You Win, scissors beats paper") {
+                    games++;   win++;  newDiv.textContent = result; para.textContent = (`Wins: ${win} Losses: ${lose}`); 
+
+                } else if (result === "You lost, paper beats rock" || result === "You lost, rock beats scissors" || result === "You lost, scissors beats paper") {
+                    games++; lose++; newDiv.textContent = result; para.textContent = (`Wins: ${win} Losses: ${lose}`);
+                    }    
+                            
+                }  
+        if (games === 5) {
+         if (win === lose ) {
+            para2.textContent = "The tourney is a tie";
+        }  else if (win > lose) {
+            para2.textContent = "You win the tourney";
+        } else if (lose > win) {para2.textContent = "You lost the tourney";} 
+        } 
+        if (games > 5) {
+           games = 0; win = 0; lose = 0; para.textContent = ""; para2.textContent = ""; newDiv.textContent = "START" 
+        } 
+           
+         
+        
+    }   
+             
+
+    
+    
+         
+  //Rock Button
+  const btnrock = document.createElement("button")
+  btnrock.textContent = "Rock"
+  btnrock.setAttribute = ('id', "rock")
+  btnrock.addEventListener('click', () => {
+   game("rock")
+  })
+  document.body.appendChild(btnrock)
+    
+  //Paper button
+  const btnpaper = document.createElement("button")
+  btnpaper.textContent = "Paper"
+  btnpaper.setAttribute = ('id', "paper")
+  btnpaper.addEventListener('click', () => {
+  game("paper")
+  })
+  document.body.appendChild(btnpaper)
+  
+  //Scissors Button
+  const btnscissors = document.createElement("button")
+  btnscissors.textContent = "Scissors"
+  btnscissors.setAttribute = ('id', "scissors")
+  btnscissors.addEventListener('click', () => {
+  game("scissors")
+  })
+  document.body.appendChild(btnscissors)
+</script>
+</body>
+</html>
